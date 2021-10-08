@@ -17,7 +17,7 @@ jobs:
       - name: Checkout another repo
         uses: actions/checkout@v2
         with:
-          repository: TechIsFun/iata-parser
+          repository: TechIsFun/SlidingSwitch
           
       - name: Install node
         uses: actions/setup-node@v2
@@ -59,7 +59,6 @@ jobs:
       - name: Get base branch for PR
         run: |
           echo BASE_BRANCH=`git checkout develop &> /dev/null && echo "develop" || git branch --show-current` >> $GITHUB_ENV
-          echo BASE_BRANCH=${{ env.BASE_BRANCH }}
         
       - name: Delete node_modules before PR
         run: rm -rf node_modules
