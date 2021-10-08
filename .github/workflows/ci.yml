@@ -55,8 +55,7 @@ jobs:
           
       - name: Get base branch for PR
         run: |
-          export BASE_BRANCH=`git checkout develop &> /dev/null && echo "develop" || git branch --show-current`
-          echo $BASE_BRANCH >> $GITHUB_ENV
+          echo BASE_BRANCH=`git checkout develop &> /dev/null && echo "develop" || git branch --show-current` >> $GITHUB_ENV
           
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
