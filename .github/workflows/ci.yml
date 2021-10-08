@@ -25,9 +25,9 @@ jobs:
           node-version: '16'
           
       - name: Install Husky
-        run: npm install husky -D
+        run: npm install husky --save-dev
 
-      - name: Setup prepare step
+      - name: Setup Husky
         run: |
           npm set-script prepare "husky install"
           npm run prepare
@@ -37,6 +37,12 @@ jobs:
           npx husky add .husky/pre-commit "./gradlew build"
           git add .husky/pre-commit
           
+      - name: Debug content of repo
+        run: ls
+
+      - name: Debug changed files
+        run: git status
+
       - name: Debug content of pre-commit
         run: |
           cat .husky/pre-commit
