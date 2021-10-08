@@ -14,16 +14,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout current repo
-        uses: actions/checkout@v2
-
       - name: Checkout another repo
         uses: actions/checkout@v2
         with:
           repository: TechIsFun/iata-parser
+          
+      - name: Install Husky
+        run: npm install husky -D
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Setup prepare step
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          npm set-script prepare "husky install"
+          npm run prepare
+          
+      - name: Add build hook
+        run: |
+          npx husky add .husky/pre-commit "./gradlew build"
+          git add .husky/pre-commit
+          
+      - name: Debug content of pre-commit
+        run: |
+          cat .husky/pre-commit
+
