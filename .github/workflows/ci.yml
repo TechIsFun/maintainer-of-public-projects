@@ -52,4 +52,18 @@ jobs:
       - name: Debug content of pre-commit
         run: |
           cat .husky/pre-commit
+          
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3.10.1
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          commit-message: "chore: configure husky for git hooks"
+          title: Configure Husky
+          body: This PR will add husky with a default hooks
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          branch: husky
+          base: develop
+          assignees: techisfun
+          reviewers: techisfun
 
