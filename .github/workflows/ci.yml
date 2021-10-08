@@ -24,6 +24,12 @@ jobs:
         with:
           node-version: '16'
           
+      - name: Ensure .gitignore exists
+        run: touch .gitignore
+        
+      - name: Add node_modules to .gitignore
+        run: grep -qxF 'node_modules' .gitignore || echo 'node_modules' >> .gitignore
+          
       - name: Install Husky
         run: npm install husky --save-dev
 
@@ -32,7 +38,7 @@ jobs:
           npm set-script prepare "husky install"
           npm run prepare
           
-      - name: Add build hook
+      - name: Add pre-commit hook
         run: |
           npx husky add .husky/pre-commit "./gradlew build"
           git add .husky/pre-commit
