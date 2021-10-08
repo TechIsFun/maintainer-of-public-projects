@@ -40,7 +40,7 @@ jobs:
           
       - name: Add pre-commit hook
         run: |
-          npx husky add .husky/pre-commit "./gradlew build"
+          npx husky add .husky/pre-commit "echo \"sample hook\""
           git add .husky/pre-commit
           
       - name: Debug content of repo
@@ -53,6 +53,12 @@ jobs:
         run: |
           cat .husky/pre-commit
           
+      - name: Get base branch for PR
+        run: |
+          export BASE_BRANCH=`git checkout develop &> /dev/null && echo "develop" || git branch --show-current`
+          echo "::set-env name=BASE_BRANCH::$BASE_BRANCH"
+          echo "BASE_BRANCH=$BASE_BRANCH"
+          
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
@@ -63,7 +69,7 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: maintainer <maintainer@users.noreply.github.com>
           branch: husky
-          base: develop
+          base: $BASE_BRANCH
           assignees: techisfun
           reviewers: techisfun
 
