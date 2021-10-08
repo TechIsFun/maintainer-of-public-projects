@@ -56,8 +56,7 @@ jobs:
       - name: Get base branch for PR
         run: |
           export BASE_BRANCH=`git checkout develop &> /dev/null && echo "develop" || git branch --show-current`
-          echo "::set-env name=BASE_BRANCH::$BASE_BRANCH"
-          echo "BASE_BRANCH=$BASE_BRANCH"
+          echo $BASE_BRANCH >> >> $GITHUB_ENV
           
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
@@ -69,7 +68,7 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: maintainer <maintainer@users.noreply.github.com>
           branch: husky
-          base: $BASE_BRANCH
+          base: ${{ env.BASE_BRANCH }}
           assignees: techisfun
           reviewers: techisfun
 
