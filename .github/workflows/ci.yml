@@ -14,10 +14,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout current repo
+        uses: actions/checkout@v2
 
-      - name: Checkout repo 
-        run: gh repo clone git@github.com:TechIsFun/iata-parser.git
+      - name: Checkout another repo
+        uses: actions/checkout@v2
+        with:
+          repository: TechIsFun/iata-parser
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
