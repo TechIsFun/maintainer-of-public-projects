@@ -74,7 +74,7 @@ jobs:
       - name: Create Pull Request
         run: |
           curl -X POST \
-          -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          -H 'Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}' \
           -H 'content-type: application/json' \
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/TechIsFun/SlidingSwitch/pulls \
@@ -84,4 +84,5 @@ jobs:
             "title": "Automated PR for commit: ${{ github.sha }}",
             "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_."
             }'
+          --fail
 
