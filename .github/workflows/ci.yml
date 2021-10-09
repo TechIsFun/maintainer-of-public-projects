@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: TechIsFun/SlidingSwitch
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           
       - name: Install node
         uses: actions/setup-node@v2
@@ -65,13 +66,18 @@ jobs:
         
       - name: Commit changes
         run: |
-          git remote set-url origin https://${{ env.GITHUB_ACTOR }}:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/TechIsFun/SlidingSwitch.git
           git config --global user.email "maintainer@example.com"
           git config --global user.name "Maintainer"
           git checkout -b husky
           git add -A
           git commit -a -m "chore: setup husky"
           git push --set-upstream origin husky
+          git push https://$USERNAME:$REPO_KEY@github.com/$REPO_PATH.git $GITHUB_REF
+        env:
+          REPO_KEY: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          USERNAME: github-actions
+          REPO_PATH: TechIsFun/SlidingSwitch
+          GITHUB_REF: refs/heads/husky
         
       - name: Create Pull Request
         run: |
