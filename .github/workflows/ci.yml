@@ -65,6 +65,7 @@ jobs:
         
       - name: Commit changes
         run: |
+          git remote set-url origin https://${{ env.GITHUB_ACTOR }}:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/TechIsFun/SlidingSwitch.git
           git config --global user.email "maintainer@example.com"
           git config --global user.name "Maintainer"
           git checkout -b husky
