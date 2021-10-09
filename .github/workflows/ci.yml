@@ -63,18 +63,22 @@ jobs:
       - name: Delete node_modules before PR
         run: rm -rf node_modules
         
+      - name: Commit changes
+        run: |
+          git commit -A -m "chore: setup husky"
+        
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: configure husky for git hooks"
-          title: Configure Husky
-          body: This PR will add husky with a default hook
-          # committer: GitHub <noreply@github.com>
-          # author: maintainer <maintainer@users.noreply.github.com>
-          branch: husky
-          # base: ${{ env.BASE_BRANCH }}
-          base: master
-          # assignees: techisfun
-          # reviewers: techisfun
+        run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/pulls \
+          -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          -H 'content-type: application/json' \
+          -H "Accept: application/vnd.github.v3+json" \
+          --data '{
+            "head": "head",
+            "base": ${{ env.BASE_BRANCH }},
+            "title": "Automated PR for commit: ${{ github.sha }}",
+            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_."
+            }' \
+          --fail
 
