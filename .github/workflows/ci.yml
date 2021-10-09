@@ -67,6 +67,7 @@ jobs:
         run: |
           git config --global user.email "maintainer@example.com"
           git config --global user.name "Maintainer"
+          git checkout -b husky
           git add -A
           git commit -a -m "chore: setup husky"
         
@@ -78,8 +79,8 @@ jobs:
           -H 'content-type: application/json' \
           -H "Accept: application/vnd.github.v3+json" \
           --data '{
-            "head": "head",
-            "base": ${{ env.BASE_BRANCH }},
+            "head": "husky",
+            "base": "${{ env.BASE_BRANCH }}",
             "title": "Automated PR for commit: ${{ github.sha }}",
             "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_."
             }' \
