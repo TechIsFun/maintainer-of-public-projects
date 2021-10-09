@@ -72,12 +72,10 @@ jobs:
           git add -A
           git commit -a -m "chore: setup husky"
           git push --set-upstream origin husky
-          git push https://$USERNAME:$REPO_KEY@github.com/$REPO_PATH.git $GITHUB_REF
         env:
           REPO_KEY: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           USERNAME: github-actions
           REPO_PATH: TechIsFun/SlidingSwitch
-          GITHUB_REF: refs/heads/husky
         
       - name: Create Pull Request
         run: |
