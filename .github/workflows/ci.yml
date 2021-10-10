@@ -68,7 +68,6 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          path: TechIsFun/SlidingSwitch
           commit-message: "chore: configure husky for git hooks"
           title: Configure Husky
           body: This PR will add husky with a default hook
