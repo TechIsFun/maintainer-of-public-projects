@@ -48,6 +48,9 @@ jobs:
           
       - name: Install Husky
         run: npm install husky --save-dev
+        
+      - name: Install Commitlint
+        run: npm install @commitlint/{cli,config-conventional}
 
       - name: Setup Husky
         run: |
@@ -59,6 +62,19 @@ jobs:
           npx husky add .husky/pre-commit "echo \"sample hook\""
           git add .husky/pre-commit
           
+      - name: Add commit-msg hook
+        run: |
+          npx husky add .husky/commit-msg "npx -c --no-install commitlint --edit \"$1\""
+          git add .husky/commit-msg
+        
+      - name: Create commitlintrc.json
+        run: |
+          cat <<EOF >> commitlintrc.json
+          {
+            "extends": ["@commitlint/config-conventional"]
+          }
+          EOF
+          
       - name: Debug content of repo
         run: ls
 
@@ -68,6 +84,10 @@ jobs:
       - name: Debug content of pre-commit
         run: |
           cat .husky/pre-commit
+          
+      - name: Debug content of commit-msg
+        run: |
+          cat .husky/commit-msg
           
       - name: Get base branch for PR
         run: |
