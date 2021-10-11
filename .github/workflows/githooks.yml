@@ -78,7 +78,7 @@ jobs:
           # https://github.com/typicode/husky/issues/861
           npx -c --no-install commitlint --edit "\$1"
           EOF
-          chomod +x .husky/commit-msg
+          chmod +x .husky/commit-msg
           git add .husky/commit-msg
         
       - name: Create .commitlintrc.json
