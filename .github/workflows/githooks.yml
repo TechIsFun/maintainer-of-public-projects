@@ -71,7 +71,7 @@ jobs:
           
       - name: Add commit-msg hook
         run: |
-          npx husky add .husky/commit-msg 'npx -c --no-install commitlint --edit "$1"'
+          npx husky add .husky/commit-msg 'npx -c --no-install commitlint --edit "\$1"'
           git add .husky/commit-msg
         
       - name: Create .commitlintrc.json
