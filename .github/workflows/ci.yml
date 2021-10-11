@@ -20,6 +20,18 @@ jobs:
           repository: TechIsFun/SlidingSwitch
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "package.json, .husky"
+          
+      - name: File exists
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: |
+          echo "husky seems already configured, exiting"
+          exit 0
+          
       - name: Install node
         uses: actions/setup-node@v2
         with:
