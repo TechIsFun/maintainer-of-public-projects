@@ -67,9 +67,9 @@ jobs:
           npx husky add .husky/commit-msg "npx -c --no-install commitlint --edit \"\$1\""
           git add .husky/commit-msg
         
-      - name: Create commitlintrc.json
+      - name: Create .commitlintrc.json
         run: |
-          cat <<EOF >> commitlintrc.json
+          cat <<EOF >> .commitlintrc.json
           {
             "extends": ["@commitlint/config-conventional"]
           }
