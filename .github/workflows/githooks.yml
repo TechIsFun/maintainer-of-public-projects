@@ -32,6 +32,11 @@ jobs:
           echo "husky seems already configured, exiting"
           exit 0
           
+      - name: Configure git
+        run: |
+          git config --global user.email "noreply@github.com"
+          git config --global user.name "GitHub"
+          
       - name: Install node
         uses: actions/setup-node@v2
         with:
