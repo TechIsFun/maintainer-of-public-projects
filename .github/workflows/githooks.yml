@@ -78,6 +78,7 @@ jobs:
           # https://github.com/typicode/husky/issues/861
           npx -c --no-install commitlint --edit "\$1"
           EOF
+          chomod +x .husky/commit-msg
           git add .husky/commit-msg
         
       - name: Create .commitlintrc.json
@@ -112,7 +113,17 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           commit-message: "chore: configure husky for git hooks"
           title: Configure Husky
-          body: This PR will add husky with a default hook
+          body: |
+            This PR will:
+            - add husky
+            - setup a commit-msg hook to check that commit message follows [conventional commits standard](https://www.conventionalcommits.org/en/v1.0.0/)
+            
+            ## Setup
+            To setup husky please run the following:
+            ```
+            npm install
+            npm run prepare
+            ```
           committer: GitHub <noreply@github.com>
           author: maintainer <maintainer@users.noreply.github.com>
           branch: husky
